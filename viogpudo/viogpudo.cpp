@@ -310,9 +310,9 @@ NTSTATUS VioGpuDod::QueryChildRelations(_Out_writes_bytes_(ChildRelationsSize) D
 
     for (UINT ChildIndex = 0; ChildIndex < ChildRelationsCount; ++ChildIndex)
     {
-        pChildRelations[ChildIndex].ChildDeviceType = TypeVideoOutput;
+        pChildRelations[ChildIndex].ChildDeviceType = TypeIntegratedDisplay;
         pChildRelations[ChildIndex].ChildCapabilities.HpdAwareness = (DeviceId == 0) ? HpdAwarenessAlwaysConnected : HpdAwarenessInterruptible;
-        pChildRelations[ChildIndex].ChildCapabilities.Type.VideoOutput.InterfaceTechnology = (DeviceId == 0) ? D3DKMDT_VOT_INTERNAL : D3DKMDT_VOT_HD15;
+        pChildRelations[ChildIndex].ChildCapabilities.Type.VideoOutput.InterfaceTechnology = D3DKMDT_VOT_DISPLAYPORT_EMBEDDED;
         pChildRelations[ChildIndex].ChildCapabilities.Type.VideoOutput.MonitorOrientationAwareness = D3DKMDT_MOA_NONE;
         pChildRelations[ChildIndex].ChildCapabilities.Type.VideoOutput.SupportsSdtvModes = FALSE;
         // TODO: Replace 0 with the actual ACPI ID of the child device, if available
@@ -393,7 +393,7 @@ NTSTATUS VioGpuDod::QueryAdapterInfo(_In_ CONST DXGKARG_QUERYADAPTERINFO* pQuery
             DXGK_DRIVERCAPS* pDriverCaps = (DXGK_DRIVERCAPS*)pQueryAdapterInfo->pOutputData;
             DbgPrint(TRACE_LEVEL_ERROR, ("InterruptMessageNumber = %d, WDDMVersion = %d\n", pDriverCaps->InterruptMessageNumber, pDriverCaps->WDDMVersion));
             RtlZeroMemory(pDriverCaps, pQueryAdapterInfo->OutputDataSize/*sizeof(DXGK_DRIVERCAPS)*/);
-            pDriverCaps->WDDMVersion = DXGKDDI_WDDMv1_2;
+            pDriverCaps->WDDMVersion = DXGKDDI_WDDMv1_3;
             pDriverCaps->HighestAcceptableAddress.QuadPart = (ULONG64)-1;
 
             if (m_pHWDevice->EnablePointer()) {
