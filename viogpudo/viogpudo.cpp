@@ -312,7 +312,7 @@ NTSTATUS VioGpuDod::QueryChildRelations(_Out_writes_bytes_(ChildRelationsSize) D
     {
         pChildRelations[ChildIndex].ChildDeviceType = TypeIntegratedDisplay;
         pChildRelations[ChildIndex].ChildCapabilities.HpdAwareness = (DeviceId == 0) ? HpdAwarenessAlwaysConnected : HpdAwarenessInterruptible;
-        pChildRelations[ChildIndex].ChildCapabilities.Type.VideoOutput.InterfaceTechnology = D3DKMDT_VOT_DISPLAYPORT_EMBEDDED;
+        pChildRelations[ChildIndex].ChildCapabilities.Type.VideoOutput.InterfaceTechnology = D3DKMDT_VOT_INTERNAL;
         pChildRelations[ChildIndex].ChildCapabilities.Type.VideoOutput.MonitorOrientationAwareness = D3DKMDT_MOA_NONE;
         pChildRelations[ChildIndex].ChildCapabilities.Type.VideoOutput.SupportsSdtvModes = FALSE;
         // TODO: Replace 0 with the actual ACPI ID of the child device, if available
